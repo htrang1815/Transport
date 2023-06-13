@@ -1,6 +1,6 @@
 import { Table } from "antd";
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { getAllClient } from "../../services/clients/services";
 
 const ClientTable = () => {
   const [client, setClient] = useState([]);
@@ -13,10 +13,7 @@ const ClientTable = () => {
 
   const getClient = useCallback(async () => {
     try {
-      const response = await axios.get(
-        `/api/khachhangs?page=${pagination.current}&numberpage=${pagination.pageSize}`
-      );
-      //   console.log(pagination);
+      const response = await getAllClient({ pagination });
       setClient(response.data.data);
       setPagination({
         total: client?.count,

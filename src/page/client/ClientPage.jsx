@@ -2,6 +2,7 @@ import NavBar from "../../components/NavBar";
 import ClientTable from "./ClientTable";
 
 const ClientPage = () => {
+    
   return (
     <div className="w-[75%] mx-auto">
       <div>
@@ -29,12 +30,14 @@ const ClientPage = () => {
             </span>
           </div>
           <div>
-            <input
-              type="text"
-              id="name "
-              placeholder="Tìm kiếm khách hàng"
-              className="w-[450px] float-right border border-gray-300 text-gray-900 text-sm outline-blue-400 rounded-sm block h-9 px-2 "
-            />
+            <form action="">
+              <input
+                type="text"
+                id="name "
+                placeholder="Tìm kiếm khách hàng"
+                className="w-[450px] float-right border border-gray-300 text-gray-900 text-sm outline-blue-400 rounded-sm block h-9 px-2 "
+              />
+            </form>
           </div>
         </div>
         <ClientTable></ClientTable>
