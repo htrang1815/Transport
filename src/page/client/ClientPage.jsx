@@ -1,8 +1,31 @@
+import { useState } from "react";
 import NavBar from "../../components/NavBar";
 import ClientTable from "./ClientTable";
+import {
+  setClientData,
+  setPagination,
+} from "../../features/clients/clientSlice";
+import { getAllClient } from "../../services/clients/services";
+import { useDispatch, useSelector } from "react-redux";
 
 const ClientPage = () => {
-    
+  const dispatch = useDispatch();
+
+  const [search, setSearch] = useState("");
+  const client = useSelector((state) => state.client.clientData);
+  const pagination = useSelector((state) => state.client.pagination);
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   dispatch(setPagination({ current: 1 }));
+  //   const response = await getAllClient({ pagination, search });
+  //   dispatch(setClientData(response.data.data));
+  // };
+
   return (
     <div className="w-[75%] mx-auto">
       <div>
@@ -30,11 +53,12 @@ const ClientPage = () => {
             </span>
           </div>
           <div>
-            <form action="">
+            <form>
               <input
                 type="text"
                 id="name "
                 placeholder="Tìm kiếm khách hàng"
+                onChange={handleSearchChange}
                 className="w-[450px] float-right border border-gray-300 text-gray-900 text-sm outline-blue-400 rounded-sm block h-9 px-2 "
               />
             </form>

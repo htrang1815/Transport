@@ -1,29 +1,35 @@
 import { Table } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { getAllClient } from "../../services/clients/services";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setClientData,
+  setPagination,
+} from "../../features/clients/clientSlice";
 
 const ClientTable = () => {
-  const [client, setClient] = useState([]);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10,
-    total: client?.count || 0,
-    showSizeChanger: true,
-  });
+  const client = useSelector((state) => state.client.clientData);
+  const pagination = useSelector((state) => state.client.pagination);
+  console.log(pagination);
 
+  const dispatch = useDispatch();
   const getClient = useCallback(async () => {
     try {
+      // console.log(pagination);
       const response = await getAllClient({ pagination });
-      setClient(response.data.data);
-      setPagination({
-        total: client?.count,
-      });
+      dispatch(setClientData(response.data.data));
+      dispatch(
+        setPagination({
+          ...pagination,
+          total: client?.count,
+        })
+      );
     } catch (error) {
       console.log(error);
     }
-  }, [client?.count, pagination]);
+  }, [client?.count, dispatch, pagination]);
   const handlePaginationChange = (pagination) => {
-    setPagination(pagination);
+    dispatch(setPagination(pagination));
     console.log(pagination);
   };
 

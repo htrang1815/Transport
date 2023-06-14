@@ -7,6 +7,7 @@ export const getAllClient = async ({ pagination }) => {
     const reponse = await axios.get(
       `${clienEndPoint}?page=${pagination?.current}&numberpage=${pagination?.pageSize}`
     );
+    // ${search ? "&search=${search}" : ""}
     return reponse;
   } catch (error) {
     console.log(error);
